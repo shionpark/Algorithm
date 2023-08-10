@@ -2,13 +2,13 @@
 
 function solution(park, routes) {
     // 시작 위치 찾기
-    let currentPosition = []
+    let dog = []
     for (let i = 0; i < park.length; i++) {
         const row = park[i]
         const columnIndex = row.indexOf("S")
         if (columnIndex !== -1) {
             const rowIndex = i
-            currentPosition.push(rowIndex, columnIndex)
+            dog.push(rowIndex, columnIndex)
             break
         }
     }
@@ -16,12 +16,12 @@ function solution(park, routes) {
     const map = { "N" : [-1, 0], "S" : [1, 0], "W" : [0, -1], "E" : [0, 1] }
     
     routes.map((route)=>{
-        const [location, steps] = route.split(" ")
-        let now = currentPosition
+        const [loc, n] = route.split(" ")
+        let now = dog
         let flag = true
        
-        for(let i = 0; i < Number(steps); i++){
-            now = [now[0] + map[location][0], now[1] + map[location][1]]
+        for(let i = 0; i < Number(n); i++){
+            now = [now[0] + map[loc][0], now[1] + map[loc][1]]
             // 벽을 넘었는지
             if((now[0] > park.length - 1) || (now[0] < 0) ||(now[1] > park[0].length - 1) ||(now[1] < 0)){
                 flag = false
@@ -34,7 +34,7 @@ function solution(park, routes) {
             } 
         }
         // true면 다 통과한 것
-        if (flag) currentPosition = now
+        if (flag) dog = now
     })
-    return currentPosition
+    return dog
 }
