@@ -1,9 +1,12 @@
 function solution(chicken) {
-    let result = 0;
-    
-    while(chicken >= 10){
-    	result += Math.floor(chicken / 10);
-        chicken = chicken % 10 + Math.floor(chicken / 10);
+    let coupons = chicken;
+    let chickensReceived = 0;
+
+    while (coupons >= 10) {
+        const freeChickens = Math.floor(coupons / 10);
+        chickensReceived += freeChickens;
+        coupons = coupons - (freeChickens * 10) + freeChickens;
     }
-    return result;
+
+    return chickensReceived;
 }
