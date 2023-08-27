@@ -4,12 +4,13 @@ function solution(score) {
         const mean = (i[0] + i[1]) / 2
         arr.push(mean)
     })
+    console.log(arr)
     
+    let answer = []
     const sortedArr = [...arr].sort((a,b) => b-a)
-    
-    let result = []
     for (let i = 0; i < sortedArr.length; i++) {
-        result.push(sortedArr.indexOf(arr[i]) + 1)
+        answer.push(sortedArr.indexOf(arr[i]) + 1)
     }
-    return result
+    console.log(answer)
+    return answer
 }
