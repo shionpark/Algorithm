@@ -5,10 +5,11 @@ function solution(score) {
         arr.push(mean)
     })
     
-    let answer = []
     const sortedArr = [...arr].sort((a,b) => b-a)
+    
+    let result = []
     for (let i = 0; i < sortedArr.length; i++) {
-        answer.push(sortedArr.indexOf(arr[i]) + 1)
+        result.push(sortedArr.indexOf(arr[i]) + 1)
     }
-    return answer
+    return result
 }
