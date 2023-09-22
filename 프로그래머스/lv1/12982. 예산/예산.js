@@ -3,7 +3,6 @@
 function solution(d, budget) {
     let count = 0
     let curSum = 0
-    let curIndex = 0
     
     d.sort((a, b) => a - b).forEach(i=> {
         curSum += i
