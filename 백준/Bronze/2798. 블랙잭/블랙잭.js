@@ -1,25 +1,26 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath).toString().trim().split("\n");
+const input = fs
+  .readFileSync(filePath)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((el) => el.split(" ").map(Number));
 
-const MAX_NUM = Number(input[0].split(" ")[1]);
-const arr = input[1].split(" ").map(Number);
+const [TEST_CASE, MAX_NUM] = input[0];
+const arr = input[1];
+let sum = 0;
+let maxSum = 0;
 
-let minDifference = Number.POSITIVE_INFINITY;
-let result;
-
-for (let i = 0; i < arr.length - 2; i++) {
-  for (let j = i + 1; j < arr.length - 1; j++) {
-    for (let k = j + 1; k < arr.length; k++) {
-      const currentSum = arr[i] + arr[j] + arr[k];
-      const currentDifference = MAX_NUM - currentSum;
-
-      if (currentDifference >= 0 && currentDifference < minDifference) {
-        minDifference = currentDifference;
-        result = arr[i] + arr[j] + arr[k];
+for (let i = 0; i < TEST_CASE - 2; i++) {
+  for (let j = i + 1; j < TEST_CASE - 1; j++) {
+    for (let k = j + 1; k < TEST_CASE; k++) {
+      sum = arr[i] + arr[j] + arr[k];
+      if (sum <= MAX_NUM && sum > maxSum) {
+        maxSum = sum;
       }
     }
   }
 }
 
-console.log(result);
+console.log(maxSum);
