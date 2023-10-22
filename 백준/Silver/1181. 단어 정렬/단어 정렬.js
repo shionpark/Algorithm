@@ -15,9 +15,12 @@ input.forEach((el) => {
   }
 });
 
+let result = "";
 for (const key in obj) {
   obj[key].sort();
   obj[key].forEach((el) => {
-    console.log(el);
+    result += `${el}\n`;
   });
 }
+
+console.log(result.slice(0, -1));
