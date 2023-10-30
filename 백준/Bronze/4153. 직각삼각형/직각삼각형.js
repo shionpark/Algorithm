@@ -7,12 +7,16 @@ const input = fs
   .split("\n")
   .map((i) => i.split(" ").map(Number));
 
-function solution(input) {
-  for (let i = 0; i < input.length - 1; i += 1) {
-    input[i].sort((a, b) => a - b);
-    [a, b, c] = input[i];
-    a ** 2 + b ** 2 === c ** 2 ? console.log("right") : console.log("wrong");
-  }
+let result = [];
+
+const numArr = input.slice(0, input.length - 1);
+
+for (let i = 0; i < numArr.length; i++) {
+  numArr[i].sort((a, b) => a - b);
+  [a, b, c] = numArr[i];
+  if (a ** 2 + b ** 2 === c ** 2) {
+    result.push("right");
+  } else result.push("wrong");
 }
 
-solution(input);
+console.log(result.join("\n"));
