@@ -1,25 +1,23 @@
 function solution(progresses, speeds) {
     let answer = [];
-    let number = 0;
-    let cnt = 0;
     
-    while (true) {
-        if (number >= progresses.length) { // while문 탈출
-            answer.push(cnt);
-            break;
-        }
-        if (progresses[number] >= 100) { // 배포 가능
-            number++;
-            cnt++;
-            continue;
-        }
-        else {          // 배포 개수 0보다 크면 배열에 담음
-            if (cnt > 0) answer.push(cnt);
-            cnt = 0;
+    while(speeds.length > 0) { // 배포되지 않은 작업이 남아있을 경우
+        // 개발
+        for (let i in speeds) {
+            if (progresses[i] < 100) {
+                progresses[i] += speeds[i]
+            }
         }
         
-        for (let i = number; i < progresses.length; i++) {
-            progresses[i] += speeds[i];
+        // 배포
+        let deploy_count = 0;
+        while (progresses[0] >= 100) {
+            progresses.shift(); // 배포
+            speeds.shift();     // 배포
+            deploy_count++;
+        }
+        if (deploy_count > 0) {
+            answer.push(deploy_count);
         }
     }
     
