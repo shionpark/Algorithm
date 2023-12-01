@@ -1,10 +1,6 @@
-const solution = nums => {
-    let answer = [];
-    const max = nums.length / 2;
-
-    nums.map(num => (
-        answer.length < max && !answer.includes(num) ? answer.push(num) : num
-    ));
+function solution(nums) {
+    let mySet = [...new Set(nums)] // 중복 제거
+    let max = nums.length / 2
     
-    return answer.length;    
+    return mySet.length > max ? max : mySet.length
 }
