@@ -7,7 +7,7 @@ function solution(sizes) {
         min_list.push(Math.min(...el))
     })
 
-    let a = Math.max(...max_list)
-    let b = Math.max(...min_list)
-    return a * b
+    let h = Math.max(...max_list)
+    let w = Math.max(...min_list)
+    return h * w
 }
