@@ -1,5 +1,3 @@
-// 삼진법 : 3으로 나눈 나머지로 숫자의 뒷부분부터 채워 나간다
-
 function solution(n) {
     let treeNum = "";
     let cnt = 1;
