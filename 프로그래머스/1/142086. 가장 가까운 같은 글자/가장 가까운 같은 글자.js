@@ -9,7 +9,7 @@ function solution(s) {
         if (str.lastIndexOf(s[i]) === -1) {
             result.push(-1)
         } else {
-            result.push(-1 * (str.lastIndexOf(s[i]) - i))
+            result.push(i - str.lastIndexOf(s[i]))
         }
     }
     return result;
