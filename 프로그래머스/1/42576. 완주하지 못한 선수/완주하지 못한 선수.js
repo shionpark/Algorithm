@@ -1,9 +1,22 @@
 function solution(participant, completion) {
-    participant.sort()
-    completion.sort()
-    for (let i = 0; i < participant.length; i++) {
-        if (participant[i] !== completion[i]) {
-            return participant[i]
+    let answer = "";
+    let myMap = new Map();
+    
+    participant.map(p => {
+        if (myMap.get(p)) {
+            myMap.set(p, myMap.get(p) + 1)
+        } else myMap.set(p, 1)
+    })
+    
+    completion.map(c => {
+        if (myMap.has(c)) {
+            myMap.set(c, myMap.get(c) - 1)
         }
-    }
+    })
+    
+    participant.map(el => {
+        if (myMap.get(el) !== 0) answer = el
+    })
+    
+    return answer
 }
