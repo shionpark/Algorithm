@@ -1,18 +1,12 @@
-function solution(n, m, section) {
-    let arr =  new Array(n).fill(0);
-    let count = 0;
+function solution(n, m, sections) {
+    let count = 0,
+        painted = 0;
     
-    section.forEach(s => {
-        arr[s - 1] = 1
-    })
-    
-    section.forEach(s => {
-        let curIdx = s - 1
-        if (arr[curIdx]) {
-            arr.fill(0, curIdx, curIdx + m)
-            count++
+    for(let section of sections) {
+        if(painted < section) {
+            count++;
+            painted = section + m - 1;
         }
-    })
-    
+    }
     return count;
 }
