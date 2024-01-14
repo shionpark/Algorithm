@@ -7,15 +7,19 @@ class MinBinaryHeap {
         return this.heap.length;
     }
     
+    swap(a, b) {
+        [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]]
+    }
+    
     heappush(value) {
         this.heap.push(value)
         let curIdx = this.heap.length - 1
         
-        while (curIdx > 0 && this.heap[curIdx] < this.heap[Math.floor((curIdx - 1) / 2)]) {
-          const temp = this.heap[curIdx];
-          this.heap[curIdx] = this.heap[Math.floor((curIdx - 1) / 2)];
-          this.heap[Math.floor((curIdx - 1) / 2)] = temp;
-          curIdx = Math.floor((curIdx - 1) / 2);
+        while (curIdx > 0) {
+            let parIdx = Math.floor((curIdx - 1) / 2);
+            if(this.heap[parIdx] <= this.heap[curIdx]) break
+            this.swap(curIdx, parIdx)
+            curIdx = parIdx;
         }
     }
     
@@ -25,19 +29,20 @@ class MinBinaryHeap {
         
         const min = this.heap[0];
         this.heap[0] = this.heap.pop()
-        let curIdx = 0
         
-        while (curIdx * 2 + 1 < this.heap.length) {
-          let minChildIndex = curIdx * 2 + 2 < this.heap.length && this.heap[curIdx * 2 + 2] < this.heap[curIdx * 2 + 1] ? curIdx * 2 + 2 : curIdx * 2 + 1;
-
-          if (this.heap[curIdx] < this.heap[minChildIndex]) {
-            break;
-          }
-
-          const temp = this.heap[curIdx];
-          this.heap[curIdx] = this.heap[minChildIndex];
-          this.heap[minChildIndex] = temp;
-          curIdx = minChildIndex;
+        let curIdx = 0
+        let leftIdx = curIdx * 2 + 1
+        let rightIdx = curIdx * 2 + 2
+        
+        while (this.heap[leftIdx] < this.heap[curIdx] || this.heap[rightIdx] < this.heap[curIdx]) {
+            let minIdx = this.heap[rightIdx] < this.heap[leftIdx] ? rightIdx : leftIdx;
+            if (this.heap[curIdx] < this.heap[minIdx]) {
+                break;
+             }
+            this.swap(curIdx, minIdx)
+            curIdx = minIdx
+            leftIdx = curIdx *2 + 1
+            rightIdx = curIdx *2 + 2
         }
         return min
     }
