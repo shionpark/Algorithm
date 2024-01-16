@@ -1,22 +1,38 @@
 function solution(k, dungeons) {
-    let answer = 0
+    let answer = -1;
     
-    const visited = Array.from({ length: dungeons.length }, () => false)
+    const getPermutations = (arr, num) => {
+        if (num === 1) return arr.map((value) => [value]);
+
+        const results = [];
+        
+        arr.forEach((fixed, index, origin) => {
+            const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
+            const permutaions = getPermutations(rest, num - 1);
+            const attached = permutaions.map((value) => [fixed, ...value]);
+            results.push(...attached);
+        });
+
+        return results;
+    };
+
+  const permutaions = getPermutations(dungeons, dungeons.length);
     
-    function DFS(hp, step) {
-        for (let i = 0; i < dungeons.length; i++) {
-            // 아직 방문하지 않음 && 최소 필요도 <= 현재 피로도 
-            if (!visited[i] && dungeons[i][0] <= hp) {
-                visited[i] = true; // 방문
-                DFS(hp - dungeons[i][1], step+1); // 현재 피로도 - 방문 던전
-                visited[i] = false; // 방문 종료
-            }
-        }
-        // 가장 깊이 들어간 진행단계
-        answer = Math.max(answer, step);
+  for (let i = 0; i < permutaions.length; i++) {
+    const dungeon = permutaions[i];
+
+    let count = 0;
+    let hp = k;
+    for (let j = 0; j < dungeon.length; j++) {
+      const [needHp, useHp] = dungeon[j];
+      if (hp >= needHp) {
+        count++;
+        hp -= useHp;
+      }
     }
-    
-    DFS(k, 0);
-    
-    return answer;
+    answer = Math.max(answer, count);
+  }
+
+  return answer;
 }
+
