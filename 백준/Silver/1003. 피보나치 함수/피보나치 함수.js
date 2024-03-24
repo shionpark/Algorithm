@@ -9,20 +9,23 @@ const input = fs
 
 const len = input.shift();
 
-for (let i = 0; i < len; i++) {
-  const n = input[i];
+const fibonacci = [
+  [1, 0], 
+  [0, 1], 
+];
 
-  const fibonacci = [
-    [1, 0],
-    [0, 1],
-  ];
-
-  for (let j = 2; j <= n; j++) {
+function getCount() {
+  for (let j = 2; j <= 40; j++) {
     fibonacci[j] = [
       fibonacci[j - 1][0] + fibonacci[j - 2][0],
       fibonacci[j - 1][1] + fibonacci[j - 2][1],
     ];
   }
+}
 
+getCount();
+
+for (let i = 0; i < len; i++) {
+  const n = input[i];
   console.log(fibonacci[n].join(" "));
 }
