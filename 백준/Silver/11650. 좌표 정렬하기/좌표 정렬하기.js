@@ -1,16 +1,15 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath).toString().trim().split("\n");
+const input = fs
+  .readFileSync(filePath)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((i) => i.split(" ").map(Number));
 
-const iter = Number(input.shift());
+input.shift();
 
-let arr = [];
-
-for (let i = 0; i < iter; i++) {
-  arr.push(input[i].split(" ").map((item) => Number(item)));
-}
-
-arr.sort((a, b) => {
+input.sort((a, b) => {
   if (a[0] === b[0]) {
     return a[1] - b[1];
   } else {
@@ -18,10 +17,9 @@ arr.sort((a, b) => {
   }
 });
 
-let answer = [];
-for (let i = 0; i < iter; i++) {
-  let result = arr[i].join(" ");
-  answer.push(result);
-}
+let result = "";
+input.map((i) => {
+  result += i.join(" ") + "\n";
+});
 
-console.log(answer.join("\n"));
+console.log(result.trim());
