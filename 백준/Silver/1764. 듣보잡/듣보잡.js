@@ -2,22 +2,21 @@ const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [N, M] = input.shift().split(" ").map(Number);
+const solution = () => {
+  const [N, M] = input.shift().split(" ").map(Number);
+  const names = {};
+  const answer = [0, []];
 
-const names = {};
+  input.forEach((name) => {
+    if (!names[name]) names[name] = 1;
+    else {
+      answer[0]++;
+      answer[1].push(name);
+    }
+  });
 
-let count = 0;
-let arr = [];
-let answer = "";
+  console.log(answer[0]);
+  console.log(answer[1].sort().join("\n"));
+};
 
-input.forEach((name) => {
-  if (!names[name]) names[name] = 1;
-  else {
-    count++;
-    arr.push(name);
-  }
-});
-
-answer = count + "\n" + arr.sort().join("\n");
-
-console.log(answer);
+solution();
