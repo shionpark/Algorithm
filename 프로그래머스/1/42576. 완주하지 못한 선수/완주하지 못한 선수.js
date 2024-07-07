@@ -1,18 +1,24 @@
 function solution(participant, completion) {
-    const map = new Map();
-
-    for(let i = 0; i < participant.length; i++) {
-        let a = participant[i], 
-            b = completion[i];
-
-        // 두 배열에 모두 존재하면 0이 될 것
-        map.set(a, (map.get(a) || 0) + 1);
-        map.set(b, (map.get(b) || 0) - 1);
+    let answer = ""
+    let map = new Map()
+    
+    participant.map(p => {
+        if (map.get(p) !== undefined) {
+            map.set(p, map.get(p) + 1)
+        } else {
+            map.set(p, 0)
+        }
+    })
+    
+    completion.map(c => {
+        if (map.get(c) !== undefined) {
+            map.set(c, map.get(c) - 1)
+        }
+    })
+    
+    for (let [k, v] of map) {
+        if (v === 0) answer = k
     }
-
-    for(let [key, value] of map) {
-        if(value > 0) return key;
-    }
-
-    return 'nothing';
+    
+    return answer
 }
