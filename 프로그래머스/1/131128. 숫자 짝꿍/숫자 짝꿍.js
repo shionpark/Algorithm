@@ -4,8 +4,10 @@ function solution(X, Y) {
     let spellY = Y.split("")
     
     for(let i = 0 ; i < 10 ; i ++) {
+        console.log("spell : ", spellX, spellY)
         const curX = spellX.filter(x => Number(x) === i).length
         const curY = spellY.filter(y => Number(y) === i).length
+        console.log("cur : ", curX, curY)
         answer += String(i).repeat(Math.min(curX, curY))
     }
     
